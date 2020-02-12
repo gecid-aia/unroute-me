@@ -1,0 +1,48 @@
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet-routing-machine.css') }}"></script>
+  <script src="{{ url_for('static', filename='js/leaflet-routing-machine.js') }}"></script>
+</head>
+
+<body>
+  <h1>DesRota</h1>
+  <form action="." method="POST">
+
+    <input name="start" type="text" placeholder="Point A"/>
+    <input name="end" type="text" placeholder="Point B"/>
+    <input type="submit" label="Search"/>
+  </form>
+
+  <div style="height: 100%" id="mapid"></div>
+
+  <script type="text/javascript">
+    var map = L.map('mapid')
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    {% if not waypoints %}
+    map.setView([51.505, -0.09], 13);
+    {% else %}
+    var routing = L.Routing.control({
+        waypoints: [
+            {% for lat, lng in waypoints %}
+            L.latLng({{ lat }}, {{ lng }}),
+            {% endfor %}
+        ],
+        routeWhileDragging: true
+    });
+    routing.addTo(map);
+    {% endif %}
+
+    routing = null;
+  </script>
+
+</body>
+
+</html>
