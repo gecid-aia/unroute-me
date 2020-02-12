@@ -1,6 +1,6 @@
 ## unroute me
 
-Experiment on divergent search for map routes.
+Experiment on divergent search for map routes. Created during [Maquinando Inteligências, Afetando Tecnologias](http://www.iea.usp.br/eventos/afetando-tecnologias-maquinando-inteligencias).
 
 
 ### Develop setup
