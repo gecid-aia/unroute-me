@@ -31,8 +31,8 @@
     {% else %}
     var routing = L.Routing.control({
         waypoints: [
-            {% for lat, lng in waypoints %}
-            L.latLng({{ lat }}, {{ lng }}),
+            {% for lat, lon in waypoints %}
+            L.latLng({{ lat }}, {{ lon }}),
             {% endfor %}
         ],
         routeWhileDragging: true

@@ -51,7 +51,7 @@ def get_bounding_box_data(*lat_lon):
     return api.Map(min_lon, min_lat, max_lon, max_lat)
 
 
-def address_lat_lng(search):
+def address_lat_lon(search):
     location = geolocator.geocode(search)
     return (location.latitude, location.longitude)
 
@@ -63,8 +63,8 @@ def index():
         start = request.form['start']
         end = request.form['end']
 
-        p1 = address_lat_lng(start)
-        p2 = address_lat_lng(end)
+        p1 = address_lat_lon(start)
+        p2 = address_lat_lon(end)
 
         bounding_box = bounds(p1, p2)
         data = [d for d in get_bounding_box_data(*bounding_box) if d['type'] == 'node']
